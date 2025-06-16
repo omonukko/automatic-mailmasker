@@ -1,4 +1,3 @@
-from utils import get_logger, C, Fore
 from faker import Faker
 from nextcaptcha import NextCaptchaAPI
 import time
@@ -72,34 +71,6 @@ class MailMasker(tls_client.Session):
             return True
         else:
             return False
-    def create_record(self):
-        response = self.post("https://mail-masker-analytics.netlify.app/api",
-            json={
-                "query": "\n\t\t\tmutation createRecord($domainId: ID!, $input: CreateRecordInput!) {\n\t\t\t\tcreateRecord(domainId: $domainId, input: $input) {\n\t\t\t\t\tpayload {\n\t\t\t\t\t\tid\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t",
-                "variables": {
-                    "domainId": "b79f0d27-bb42-4711-a8f2-58a666975d7e",
-                    "input": {
-                        "siteLocation": "https://www.mailmasker.com/",
-                        "siteReferrer": "",
-                        "siteLanguage": "ja",
-                        "screenWidth": 1920,
-                        "screenHeight": 1080,
-                        "screenColorDepth": 24,
-                        "deviceName": None,
-                        "deviceManufacturer": None,
-                        "osName": "Windows",
-                        "osVersion": "10",
-                        "browserName": "Chrome",
-                        "browserVersion": "137.0.0.0",
-                        "browserWidth": 1920,
-                        "browserHeight": 1080
-                    }
-                }
-            }
-        )
-        if response.status_code == 200 and response.json()["data"]["createRecord"]["payload"]["id"]:
-            return response.json()["data"]["createRecord"]["payload"]["id"]
-        return None
     def create_user(self, username:str, forward_email: str, password: str, mask_mail: str):
         print(f"Creating: {username}:{forward_email}:{password}:{mask_mail}")
         self.uuid = uuid.uuid4()
