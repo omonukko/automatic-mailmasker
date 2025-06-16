@@ -1,6 +1,6 @@
 .venv/*
 utils/__pycache__/*
-utils/kukupy/*
 utils/logger/__pycache__/*
-utils/mail/__pycache__/*
-utils/solver/__pycache__/*
+utils/kukupy/*
+utils/solver/*
+utils/mail/*

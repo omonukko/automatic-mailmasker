@@ -1,4 +1,4 @@
-from utils import Capsolver, GmailNator, get_logger, C, Fore
+from utils import get_logger, C, Fore
 from faker import Faker
 from nextcaptcha import NextCaptchaAPI
 import time
@@ -155,7 +155,7 @@ class MailMasker(tls_client.Session):
             raise MailMaskerException("Failed to verifying account: "+response.text)
     def add_mail(self, name: str):
         if not self.is_available(name):
-            raise MailMaskerException("The Name is already used.")
+            raise MailMaskerException("The Name is already taken.")
         response = self.post(
             "https://api.mailmasker.com/graphql",
             params={
